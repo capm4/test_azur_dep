@@ -1,10 +1,8 @@
 FROM node:alpine
 
-RUN apt install -y openssh-server && echo "root:Docker!" | chpasswd
-
-RUN mkdir -p /var/log/supervisor 
-
-COPY sshd_config /etc/ssh/
+RUN echo "root:Docker!" | chpasswd
+RUN docker-service enable ssh
+RUN sed -i -E 's/^#?PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
 
 EXPOSE 2222
 
