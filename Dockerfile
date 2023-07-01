@@ -12,14 +12,8 @@ WORKDIR /usr/app
 COPY . .
 RUN npm install
 
-# Generate SSH host keys
-RUN ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa && \
-    ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa && \
-    ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa && \
-    ssh-keygen -f /etc/ssh/ssh_host_ed25519_key -N '' -t ed25519
-
 # Expose SSH port
 EXPOSE 22
 
-# Start SSH server and the application
-CMD /usr/sbin/sshd -D && npm start
+# Start SSH server and generate SSH host keys on container startup
+CMD /usr/sbin/sshd && ssh-keygen -A && npm start
