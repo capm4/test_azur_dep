@@ -1,19 +1,19 @@
 FROM node:alpine
 
-# Install SSH server and OpenSSH client
-RUN apk update && apk add openssh-server openssh-client
+RUN apt-get update \
+    && apt-get install -y supervisor \
+    && apt-get install -y openssh-server && echo "root:Docker!" | chpasswd
 
-# Set up a non-root user
-RUN adduser -D appuser
-USER appuser
+RUN mkdir -p /var/log/supervisor 
+COPY sshd_config /etc/ssh/
+
+EXPOSE 2222
 
 WORKDIR /usr/app
 
 COPY . .
 RUN npm install
 
-# Expose SSH port
-EXPOSE 22
+EXPOSE 2222
 
-# Start SSH server and generate SSH host keys on container startup
-CMD /usr/sbin/sshd && ssh-keygen -A && npm start
+CMD npm start
