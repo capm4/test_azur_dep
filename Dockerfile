@@ -1,7 +1,7 @@
 FROM node:alpine
 
-# Install SSH server
-RUN apk update && apk add openssh
+# Install SSH server and OpenSSH client
+RUN apk update && apk add openssh-server openssh-client
 
 # Generate SSH keys
 RUN ssh-keygen -A
