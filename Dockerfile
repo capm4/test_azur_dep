@@ -19,4 +19,4 @@ RUN npm install
 EXPOSE 22
 
 # Start SSH server and the application
-CMD service ssh start && npm start
+CMD /usr/sbin/sshd -D && npm start
