@@ -1,7 +1,6 @@
 FROM node:alpine
 
-RUN apt-get update \
-    && apt-get install -y openssh-server && echo "root:Docker!" | chpasswd
+RUN apt install -y openssh-server && echo "root:Docker!" | chpasswd
 
 RUN mkdir -p /var/log/supervisor 
 
@@ -16,4 +15,4 @@ RUN npm install
 
 EXPOSE 2222
 
-CMD npm start
+CMD service start ssh && npm start
