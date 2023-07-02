@@ -44,6 +44,9 @@ RUN apk add dialog \
     && apk add openssh-server \
     && echo "root:Docker!" | chpasswd \
     && chmod u+x ./entrypoint.sh
+
+RUN ssh-keygen -A
+
 COPY sshd_config /etc/ssh/
 
 EXPOSE 8000 2222
