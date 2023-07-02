@@ -36,3 +36,5 @@ system_default = system_default_sect\n\
 \n\
 [system_default_sect]\n\
 Options = UnsafeLegacyRenegotiation/' /etc/ssl/openssl.cnf
+
+expose 2222
