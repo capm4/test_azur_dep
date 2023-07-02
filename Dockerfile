@@ -2,6 +2,8 @@ FROM webdevops/php-apache:8.2-alpine
 
 ARG ARG_WEB_DOCUMENT_ROOT=/app
 ARG ARG_ROOT_PASSWORD="Docker!"
+ARG ARG_LOG_STDOUT=/var/log/access_log
+ARG ARG_LOG_STDERR=/var/log/error_log
 
 COPY ./ /app
 WORKDIR /app
