@@ -27,7 +27,7 @@ RUN echo '@include "/etc/syslog-ng/conf.d/*.conf"' >> /opt/docker/etc/syslog-ng/
 #COPY etc/00-syslog.conf /etc/syslog-ng/conf.d/00-syslog.conf
 
 # Ensure env vars show up in SSH session in Azure by adding:
- eval $(printenv | grep -E "^[^.]+=.+$" | grep -vE "^(COMPUTERNAME|PWD|HOME|HOSTNAME)" | sed -n "s/^\([^=]\+\)=\(.*\)$/export \1=\2/p" | sed 's/"/\\\"/g' | sed '/=/s//="/' | sed 's/$/"/' >> /root/.profile)
+RUN eval $(printenv | grep -E "^[^.]+=.+$" | grep -vE "^(COMPUTERNAME|PWD|HOME|HOSTNAME)" | sed -n "s/^\([^=]\+\)=\(.*\)$/export \1=\2/p" | sed 's/"/\\\"/g' | sed '/=/s//="/' | sed 's/$/"/' >> /root/.profile)
 RUN echo "eval \$(printenv | grep -E \"^[^.]+=.+\$\" | grep -vE \"^(COMPUTERNAME|PWD|HOME|HOSTNAME)\" | sed -n \"s/^\\([^=]\\+\\)=\\(.*\\)\$/export \\1=\\2/p\" | sed 's/\"/\\\\\\\"/g' | sed '/=/s//=\"/' | sed 's/\$/\"/' >> /root/.profile)" > /opt/docker/provision/entrypoint.d/00-env.sh
 RUN wget -O sqlsslca.crt https://cacerts.digicert.com/DigiCertGlobalRootG2.crt.pem
 RUN sed -i 's/providers = provider_sect/providers = provider_sect\n\
