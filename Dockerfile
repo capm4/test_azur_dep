@@ -41,4 +41,3 @@ Options = UnsafeLegacyRenegotiation/' /etc/ssl/openssl.cnf
 
 EXPOSE  2222
 
-ENTRYPOINT [ "./entrypoint.sh" ]
