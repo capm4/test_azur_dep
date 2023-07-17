@@ -20,6 +20,7 @@ RUN pip install gunicorn
 RUN echo "root:${ARG_ROOT_PASSWORD}" | chpasswd
 RUN docker-service enable ssh
 RUN sed -i -E 's/^#?PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN sed -i 's/#Port 22/Port 2222/' /etc/ssh/sshd_config
 
 
 # Syslog
@@ -39,5 +40,5 @@ system_default = system_default_sect\n\
 [system_default_sect]\n\
 Options = UnsafeLegacyRenegotiation/' /etc/ssl/openssl.cnf
 
-EXPOSE 2222
+EXPOSE 22
 
